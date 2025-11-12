@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobSeekly – Find Your Next Job Easily</title>
+  <meta name="description" content="JobSeekly helps you search for jobs easily. Explore opportunities, filter by location, and find your next career move. Built with HTML, CSS, and JavaScript." />
+  <meta name="keywords" content="job search, careers, frontend developer, remote jobs, JobSeekly" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>JobSeekly</h1>
+    <p>Discover remote jobs in Nigeria and explore opportunities for your next career move.</p>
+  </header>
+  <div class="container">
+    <div class="search-bar" style="position: relative;">
+      <input 
+        type="text" 
+        id="searchInput" 
+        name="jobTitle" 
+        placeholder="Search job title..." 
+        autocomplete="job-title" 
+      />
+      <select 
+        id="locationFilter" 
+        name="location" 
+        autocomplete="country"
+      >
+        <option value="">All Locations</option>
+        <option value="Remote">Remote</option>
+        <option value="Lagos">Lagos</option>
+        <option value="Abuja">Abuja</option>
+        <option value="Port Harcourt">Port Harcourt</option>
+         <option value="Abuja">Delta State</option>
+      </select>
+      <button onclick="filterJobs()">Search</button>
+    </div>
+
+    <div id="jobList"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 JobSeekly. Built with HTML, CSS & JavaScript.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
