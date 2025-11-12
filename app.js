@@ -1,21 +1,21 @@
 console.log("JS is connected!");
 
 const jobs = [
-  { title: "Frontend Developer", company: "TechNova", location: "Remote", description: "Work with React, Tailwind, and APIs." },
-  { title: "UI Designer", company: "PixelCraft", location: "Accra", description: "Design clean, modern interfaces." },
-  { title: "Backend Developer", company: "CodeBase", location: "Lagos", description: "Node.js, MongoDB, REST APIs." },
-  { title: "Fullstack Developer", company: "DevWorks", location: "Remote", description: "Build end-to-end web applications using JS and Node." },
-  { title: "Remote Frontend Developer", company: "NaijaTech Solutions", location: "Remote", description: "Build responsive websites using React.js and modern frontend tools." },
-  { title: "Remote Backend Developer", company: "LagosCode", location: "Remote", description: "Work on Node.js and MongoDB backend systems for client projects." },
-  { title: "Remote UI/UX Designer", company: "DesignHive NG", location: "Remote", description: "Design intuitive interfaces and user experiences for web and mobile apps." },
-  { title: "Remote Data Analyst", company: "DataWorks Nigeria", location: "Remote", description: "Analyze data trends using Python, SQL, and visualization tools." },
-  { title: "Remote Digital Marketing Specialist", company: "BrandBoost NG", location: "Remote", description: "Manage campaigns, social media, and SEO for multiple clients." },
-  { title: "Remote Content Writer", company: "WriteSmart Nigeria", location: "Remote", description: "Create engaging content for blogs, websites, and social media platforms." },
-  { title: "Remote Fullstack Developer", company: "CodeFront NG", location: "Remote", description: "Work on end-to-end web applications using JavaScript, Node.js, and React." },
-  { title: "Frontend Engineer", company: "AbujaTech", location: "Remote", description: "Develop scalable front-end solutions using React." },
-  { title: "Remote QA Tester", company: "Testify NG", location: "Remote", description: "Perform testing for web and mobile applications." },
-  { title: "Remote DevOps Engineer", company: "CloudWorks NG", location: "Remote", description: "Manage deployment pipelines and server infrastructure." },
-  { title: "Remote Mobile App Developer", company: "AppCraft NG", location: "Remote", description: "Build cross-platform mobile applications with Flutter." }
+  { title: "Frontend Developer", company: "TechNova", location: "Remote", description: "Work with React, Tailwind, and APIs.", link: "https://www.tecnova.com" },
+  { title: "UI Designer", company: "PixelCraft", location: "Accra", description: "Design clean, modern interfaces.", link: "https://www.pixelcraft.com" },
+  { title: "Backend Developer", company: "CodeBase", location: "Lagos", description: "Node.js, MongoDB, REST APIs.", link: "https://www.codebase.com" },
+  { title: "Fullstack Developer", company: "DevWorks", location: "Remote", description: "Build end-to-end web applications using JS and Node.", link: "https://www.devworks.com" },
+  { title: "Remote Frontend Developer", company: "NaijaTech Solutions", location: "Remote", description: "Build responsive websites using React.js and modern frontend tools.", link: "https://www.naijatech.com.ng" },
+  { title: "Remote Backend Developer", company: "LagosCode", location: "Remote", description: "Work on Node.js and MongoDB backend systems for client projects.", link: "https://www.lagoscode.com" },
+  { title: "Remote UI/UX Designer", company: "DesignHive NG", location: "Remote", description: "Design intuitive interfaces and user experiences for web and mobile apps.", link: "https://www.designhiveng.com" },
+  { title: "Remote Data Analyst", company: "DataWorks Nigeria", location: "Remote", description: "Analyze data trends using Python, SQL, and visualization tools.", link: "https://www.dataworks.com.ng" },
+  { title: "Remote Digital Marketing Specialist", company: "BrandBoost NG", location: "Remote", description: "Manage campaigns, social media, and SEO for multiple clients.", link: "https://www.brandboostng.com" },
+  { title: "Remote Content Writer", company: "WriteSmart Nigeria", location: "Remote", description: "Create engaging content for blogs, websites, and social media platforms.", link: "https://www.writesmartng.com" },
+  { title: "Remote Fullstack Developer", company: "CodeFront NG", location: "Remote", description: "Work on end-to-end web applications using JavaScript, Node.js, and React.", link: "https://www.codefrontng.com" },
+  { title: "Frontend Engineer", company: "AbujaTech", location: "Remote", description: "Develop scalable front-end solutions using React.", link: "https://www.abujatech.com.ng" },
+  { title: "Remote QA Tester", company: "Testify NG", location: "Remote", description: "Perform testing for web and mobile applications.", link: "https://www.testifyng.com" },
+  { title: "Remote DevOps Engineer", company: "CloudWorks NG", location: "Remote", description: "Manage deployment pipelines and server infrastructure.", link: "https://www.cloudworksng.com" },
+  { title: "Remote Mobile App Developer", company: "AppCraft NG", location: "Remote", description: "Build cross-platform mobile applications with Flutter.", link: "https://www.appcraftng.com" }
 ];
 
 const searchInput = document.getElementById("searchInput");
@@ -27,7 +27,7 @@ const locationFilter = document.getElementById("locationFilter");
 ----------------------------- */
 function displayJobs(list) {
   jobList.innerHTML = "";
-  if(list.length === 0) {
+  if (list.length === 0) {
     const noJobs = document.createElement("div");
     noJobs.className = "no-jobs";
     noJobs.textContent = "No jobs found matching your search.";
@@ -43,12 +43,12 @@ function displayJobs(list) {
 
     card.innerHTML = `
       <h3>${job.title} ${remoteBadge}</h3>
-      <p><strong>Company:</strong> ${job.company}</p>
+      <p><strong>Company:</strong> <a href="${job.link}" target="_blank" class="company-link">${job.company}</a></p>
       <p><strong>Location:</strong> ${job.location}</p>
       <p>${job.description}</p>
     `;
 
-    // Initial opacity 0 for fade-in
+    // Animation setup
     card.style.opacity = '0';
     card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     card.style.transform = 'translateY(20px)';
@@ -118,18 +118,16 @@ const observer = new MutationObserver((mutationsList) => {
     if (mutation.type === 'childList') {
       mutation.addedNodes.forEach((node, index) => {
         if (node.classList && node.classList.contains('job-card')) {
-          // Trigger fade-in animation
           setTimeout(() => {
             node.style.opacity = '1';
             node.style.transform = 'translateY(0)';
-          }, index * 50); // staggered animation
+          }, index * 50);
         }
       });
     }
   });
 });
 
-// Observe jobList for added child nodes
 observer.observe(jobList, { childList: true });
 
 /* -----------------------------
