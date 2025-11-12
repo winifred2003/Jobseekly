@@ -12,15 +12,38 @@ const jobs = [
   { title: "Remote Digital Marketing Specialist", company: "BrandBoost NG", location: "Remote", description: "Manage campaigns, social media, and SEO for multiple clients.", link: "https://www.brandboostng.com" },
   { title: "Remote Content Writer", company: "WriteSmart Nigeria", location: "Remote", description: "Create engaging content for blogs, websites, and social media platforms.", link: "https://www.writesmartng.com" },
   { title: "Remote Fullstack Developer", company: "CodeFront NG", location: "Remote", description: "Work on end-to-end web applications using JavaScript, Node.js, and React.", link: "https://www.codefrontng.com" },
-  { title: "Frontend Engineer", company: "AbujaTech", location: "Remote", description: "Develop scalable front-end solutions using React.", link: "https://www.abujatech.com.ng" },
+  { title: "Frontend Engineer", company: "AbujaTech", location: "Abuja", description: "Develop scalable front-end solutions using React.", link: "https://www.abujatech.com.ng" },
   { title: "Remote QA Tester", company: "Testify NG", location: "Remote", description: "Perform testing for web and mobile applications.", link: "https://www.testifyng.com" },
   { title: "Remote DevOps Engineer", company: "CloudWorks NG", location: "Remote", description: "Manage deployment pipelines and server infrastructure.", link: "https://www.cloudworksng.com" },
-  { title: "Remote Mobile App Developer", company: "AppCraft NG", location: "Remote", description: "Build cross-platform mobile applications with Flutter.", link: "https://www.appcraftng.com" }
+  { title: "Remote Mobile App Developer", company: "AppCraft NG", location: "Remote", description: "Build cross-platform mobile applications with Flutter.", link: "https://www.appcraftng.com" },
+
+  // New companies in different states
+  { title: "Frontend Developer", company: "DeltaTech Solutions", location: "Delta State", description: "Work on responsive web applications using React and Node.js.", link: "https://www.deltatech.com.ng" },
+  { title: "Backend Engineer", company: "PortHarcourt Innovations", location: "Port Harcourt", description: "Develop scalable backend services using Node.js and MongoDB.", link: "https://www.phinnovations.com" },
+  { title: "UI/UX Designer", company: "Abuja Creative Hub", location: "Abuja", description: "Design intuitive user interfaces for web and mobile apps.", link: "https://www.abujacreative.com" },
+  { title: "Fullstack Developer", company: "Lagos WebWorks", location: "Lagos", description: "Build end-to-end web applications with JavaScript, React, and Node.", link: "https://www.lagoswebworks.com" },
+  { title: "Digital Marketing Specialist", company: "Delta Media Group", location: "Delta State", description: "Manage social media campaigns and SEO for clients across Nigeria.", link: "https://www.deltamedia.com.ng" },
+  { title: "Mobile App Developer", company: "PortHarcourt Mobile Labs", location: "Port Harcourt", description: "Build cross-platform mobile applications using Flutter and React Native.", link: "https://www.phmobilelabs.com" },
+  { title: "Frontend Engineer", company: "Abuja Tech Solutions", location: "Abuja", description: "Develop modern front-end applications using React and Tailwind CSS.", link: "https://www.abujatechsolutions.com.ng" },
+  { title: "Backend Developer", company: "Lagos Code Labs", location: "Lagos", description: "Work on server-side applications with Node.js, Express, and MongoDB.", link: "https://www.lagoscodelabs.com" },
+
+  // ✅ Data Scientist positions
+  { title: "Data Scientist", company: "Moniepoint Incorporated", location: "Lagos", description: "Analyze large datasets and build predictive models for fintech solutions.", link: "https://www.fuzu.com/nigeria/jobs/senior-data-scientist-moniepoint-incorporated" },
+  { title: "Data Scientist", company: "Chevron Nigeria Limited", location: "Lagos", description: "Work with data analytics and machine learning for oil & gas projects.", link: "https://go.chevron.com/Chevron_CareerProEvent" },
+  { title: "Data Scientist", company: "Andela Nigeria", location: "Lagos", description: "Develop machine learning models and analyze engineering data.", link: "https://www.andela.com/careers" },
+  { title: "Data Scientist", company: "Konga", location: "Lagos", description: "Perform data analysis to optimize e-commerce operations and product recommendations.", link: "https://www.konga.com/careers" },
+  { title: "Data Scientist", company: "Paga", location: "Lagos", description: "Analyze transaction data and build predictive models for fintech products.", link: "https://www.paga.com/careers" },
+  { title: "Data Scientist", company: "Abuja Data Labs", location: "Abuja", description: "Work on data-driven solutions for public and private sector projects.", link: "https://www.abujadatalabs.com" },
+  { title: "Data Scientist", company: "Delta Analytics", location: "Delta State", description: "Analyze business and operational data for companies in Delta State.", link: "https://www.deltaanalytics.com.ng" },
+  { title: "Data Scientist", company: "Port Harcourt Data Solutions", location: "Port Harcourt", description: "Build machine learning models and dashboards for local companies.", link: "https://www.phdatasolutions.com" }
 ];
+
+
 
 const searchInput = document.getElementById("searchInput");
 const jobList = document.getElementById("jobList");
-const locationFilter = document.getElementById("locationFilter");
+const locationFilter = document.getElementById("locationFilter")
+
 
 /* -----------------------------
    Display jobs function
@@ -78,27 +101,38 @@ function filterJobs() {
    Search suggestions
 ----------------------------- */
 function showSuggestions(filteredJobs) {
+  // Remove old suggestions if they exist
   const oldList = document.getElementById("suggestions");
   if (oldList) oldList.remove();
   if (!searchInput.value) return;
 
   const suggestionList = document.createElement("ul");
   suggestionList.id = "suggestions";
+
+  // Styling
   suggestionList.style.listStyle = 'none';
-  suggestionList.style.padding = '5px';
+  suggestionList.style.padding = '0';
+  suggestionList.style.margin = '0';
   suggestionList.style.border = '1px solid #ccc';
   suggestionList.style.background = 'white';
   suggestionList.style.position = 'absolute';
+  suggestionList.style.top = searchInput.offsetHeight + 'px';
+  suggestionList.style.left = '0';
   suggestionList.style.width = searchInput.offsetWidth + 'px';
   suggestionList.style.zIndex = '1000';
   suggestionList.style.maxHeight = '150px';
   suggestionList.style.overflowY = 'auto';
+  suggestionList.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)';
+  suggestionList.style.borderRadius = '4px';
 
   filteredJobs.forEach(job => {
     const item = document.createElement("li");
     item.textContent = job.title;
-    item.style.padding = '5px';
+    item.style.padding = '8px';
     item.style.cursor = 'pointer';
+    item.style.transition = 'background 0.2s';
+    item.addEventListener('mouseover', () => { item.style.background = '#f0f0f0'; });
+    item.addEventListener('mouseout', () => { item.style.background = 'white'; });
     item.addEventListener('click', () => {
       searchInput.value = job.title;
       filterJobs();
@@ -107,7 +141,9 @@ function showSuggestions(filteredJobs) {
     suggestionList.appendChild(item);
   });
 
-  searchInput.parentNode.appendChild(suggestionList);
+  // Attach suggestions to the relative container
+  const container = searchInput.parentNode;
+  container.appendChild(suggestionList);
 }
 
 /* -----------------------------
